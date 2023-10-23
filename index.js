@@ -21,7 +21,8 @@ async function main() {
 // Schema
 
 // bodyParser
-const allowedOrigins = ['http://localhost:5173']; // Replace with your frontend origin
+// const allowedOrigins = ['http://localhost:5173']; // Replace with your frontend origin
+const allowedOrigins = ['https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app/'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
