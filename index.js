@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const axios = require('axios'); // Import the axios library
 
 const server = express();
 const productRouter = require('./routes/product');
@@ -18,36 +19,10 @@ async function main() {
   console.log('Database connected');
 }
 
-// Define the allowed origins for CORS
-// const allowedOrigins = [
-//   'https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app',
-//   // Add more origins if needed
-// ];
-
-
-const config = {
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-  }
-};
-
-const {
-  data: { ip }
-} = await axios.get("https://api.ipify.org?format=json", config);
-
-
-
-
 // Set up CORS options
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*',
+  methods: 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
 };
 
 // Apply CORS middleware
@@ -65,3 +40,17 @@ server.use('/users', userRouter.router);
 server.listen(5000, () => {
   console.log('Server started');
 });
+
+// Define an async function to get the IP address
+async function getIpAddress() {
+  try {
+    const response = await axios.get('https://api.ipify.org?format=json');
+    const ip = response.data.ip;
+    console.log('Your IP address is:', ip);
+  } catch (error) {
+    console.error('Error fetching IP address:', error);
+  }
+}
+
+// Call the async function to get the IP address
+getIpAddress();
