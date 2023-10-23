@@ -15,7 +15,7 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-// Read: Get all products 
+// Read: Get all products
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -26,11 +26,11 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
-// Read: Get a single product by ID
+// Read: Get a single product by title
 exports.getProduct = async (req, res) => {
-  const id = req.params.id;
+  const title = req.params.title; // Change id to title
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findOne({ title: title }); // Find by title
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
@@ -41,11 +41,11 @@ exports.getProduct = async (req, res) => {
   }
 };
 
-// Update: Replace a product by ID
+// Update: Replace a product by title
 exports.replaceProduct = async (req, res) => {
-  const id = req.params.id;
+  const title = req.params.title; // Change id to title
   try {
-    const doc = await Product.findOneAndReplace({ _id: id }, req.body, { new: true });
+    const doc = await Product.findOneAndReplace({ title: title }, req.body, { new: true }); // Find by title
     if (!doc) {
       return res.status(404).json({ error: 'Product not found' });
     }
@@ -56,11 +56,11 @@ exports.replaceProduct = async (req, res) => {
   }
 };
 
-// Update: Update a product by ID
+// Update: Update a product by title
 exports.updateProduct = async (req, res) => {
-  const id = req.params.id;
+  const title = req.params.title; // Change id to title
   try {
-    const doc = await Product.findOneAndUpdate({ _id: id }, req.body, { new: true });
+    const doc = await Product.findOneAndUpdate({ title: title }, req.body, { new: true }); // Find by title
     if (!doc) {
       return res.status(404).json({ error: 'Product not found' });
     }
@@ -71,11 +71,11 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-// Delete: Delete a product by ID
+// Delete: Delete a product by title
 exports.deleteProduct = async (req, res) => {
-  const id = req.params.id;
+  const title = req.params.title; // Change id to title
   try {
-    const doc = await Product.findOneAndDelete({ _id: id });
+    const doc = await Product.findOneAndDelete({ title: title }); // Find by title
     if (!doc) {
       return res.status(404).json({ error: 'Product not found' });
     }
