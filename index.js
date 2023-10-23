@@ -19,10 +19,25 @@ async function main() {
 }
 
 // Define the allowed origins for CORS
-const allowedOrigins = [
-  'https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app',
-  // Add more origins if needed
-];
+// const allowedOrigins = [
+//   'https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app',
+//   // Add more origins if needed
+// ];
+
+
+const config = {
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+  }
+};
+
+const {
+  data: { ip }
+} = await axios.get("https://api.ipify.org?format=json", config);
+
+
+
 
 // Set up CORS options
 const corsOptions = {
