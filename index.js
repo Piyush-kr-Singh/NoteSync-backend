@@ -9,7 +9,7 @@ const userRouter = require('./routes/user');
 
 // Set up CORS to allow requests from your frontend URL
 server.use(cors({
-  origin: 'https://note-sync-backend-p8aaq7yaw-piyush-kr-singh.vercel.app', // Remove the trailing slash
+  origin: 'https://notesync-fvrk.onrender.com', // Remove the trailing slash
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
