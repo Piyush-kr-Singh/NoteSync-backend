@@ -18,11 +18,13 @@ async function main() {
   console.log('Database connected');
 }
 
-// Schema
+// Define the allowed origins for CORS
+const allowedOrigins = [
+  'https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app',
+  // Add more origins if needed
+];
 
-// bodyParser
-// const allowedOrigins = ['http://localhost:5173']; // Replace with your frontend origin
-const allowedOrigins = ['https://6536940ed17584330ad6504e--iridescent-douhua-044a68.netlify.app/'];
+// Set up CORS options
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -33,10 +35,15 @@ const corsOptions = {
   },
 };
 
+// Apply CORS middleware
 server.use(cors(corsOptions));
+
+// Other middleware
 server.use(express.json());
 server.use(morgan('default'));
 server.use(express.static('public'));
+
+// Define routes
 server.use('/products', productRouter.router);
 server.use('/users', userRouter.router);
 
